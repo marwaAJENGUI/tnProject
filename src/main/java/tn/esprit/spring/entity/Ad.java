@@ -3,14 +3,30 @@ package tn.esprit.spring.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Future;
+
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Columns;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
+@Table(
+	    uniqueConstraints=
+	        @UniqueConstraint(columnNames={"begenning_date", "end_date","product_bar_code"})
+	)
 public class Ad implements Serializable {
 	/**
 	 * 
@@ -18,30 +34,31 @@ public class Ad implements Serializable {
 	private static final long serialVersionUID = 2329896158303253039L;
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	private Long Id;
-	private String Canal;
+	private Long id;
+	@NotNull
 	@Temporal(TemporalType.DATE)
+	@Column(name="begenning_date")
 	private Date beginningDate;
+	@NotNull
 	@Temporal(TemporalType.DATE)
+	@Column(name="end_date")
+	//@Future(message="Please enter a future ending date ")
 	private Date endDate;
-	private int targetViews;
-	private int views;
+	private int targetViews=0;
+	private int views=0;
+	@NotNull
 	@ManyToOne
 	private  Product product;
 	@ManyToOne
 	private AdCategory category;
+	
 	public Long getId() {
-		return Id;
+		return id;
 	}
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
-	public String getCanal() {
-		return Canal;
-	}
-	public void setCanal(String canal) {
-		Canal = canal;
-	}
+
 	public Date getBeginningDate() {
 		return beginningDate;
 	}
@@ -63,8 +80,8 @@ public class Ad implements Serializable {
 	public int getViews() {
 		return views;
 	}
-	public void setViews(int views) {
-		this.views = views;
+	public void setViews() {
+		this.views =this.views+1;
 	}
 	public Product getProduct() {
 		return product;
@@ -82,11 +99,10 @@ public class Ad implements Serializable {
 	public Ad() {
 		super();
 	}
-	public Ad(Long id, String canal, Date beginningDate, Date endDate, int targetViews, int views, Product product,
+	public Ad(Long id, Date beginningDate, Date endDate, int targetViews, int views, Product product,
 			AdCategory category) {
 		super();
-		Id = id;
-		Canal = canal;
+		this.id = id;
 		this.beginningDate = beginningDate;
 		this.endDate = endDate;
 		this.targetViews = targetViews;
@@ -96,7 +112,7 @@ public class Ad implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Ad [Id=" + Id + ", Canal=" + Canal + ", beginningDate=" + beginningDate + ", endDate=" + endDate
+		return "Ad [Id=" + id + ", beginningDate=" + beginningDate + ", endDate=" + endDate
 				+ ", targetViews=" + targetViews + ", views=" + views + ", product=" + product + ", category="
 				+ category + "]";
 	}
@@ -104,11 +120,10 @@ public class Ad implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Canal == null) ? 0 : Canal.hashCode());
-		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
 		result = prime * result + ((beginningDate == null) ? 0 : beginningDate.hashCode());
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((product == null) ? 0 : product.hashCode());
 		result = prime * result + targetViews;
 		result = prime * result + views;
@@ -123,16 +138,6 @@ public class Ad implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Ad other = (Ad) obj;
-		if (Canal == null) {
-			if (other.Canal != null)
-				return false;
-		} else if (!Canal.equals(other.Canal))
-			return false;
-		if (Id == null) {
-			if (other.Id != null)
-				return false;
-		} else if (!Id.equals(other.Id))
-			return false;
 		if (beginningDate == null) {
 			if (other.beginningDate != null)
 				return false;
@@ -148,6 +153,11 @@ public class Ad implements Serializable {
 				return false;
 		} else if (!endDate.equals(other.endDate))
 			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		if (product == null) {
 			if (other.product != null)
 				return false;
@@ -159,5 +169,5 @@ public class Ad implements Serializable {
 			return false;
 		return true;
 	}
-	
+		
 }

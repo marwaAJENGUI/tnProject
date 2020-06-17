@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	template="template/template.xhtml">
+
+
+<h:head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sign Up</title>
+</h:head>
+
+<ui:param name="page_name" value="Consomi TN !"/>
+		<ui:define name="signUp">
+
+
+
+<f:view>
+<br/>	<br/>
+<div align="center">		
+<p:panel  style="width:90%; ">
+<h:panelGroup>
+<h1>Sign Up</h1>
+	<h:form id="register" >
+		    <p:message for="RegisterGroupPanel" style="color:red;" />
+		    <h:panelGrid  id="RegisterGroupPanel" cellpadding="10">
+		    			<!-- register a PostValidateEvent -->
+			<f:event listener="#{signUpController.validatePassword}" type="postValidate" />
+				
+				<p:outputLabel for="username"  value="User Name"/>			
+				<p:watermark for="username"  value="User Name"/>
+				<p:inputText id="username" value="#{signUpController.user.username}" required="true" 	requiredMessage="Please enter username"  size="30">
+					<f:validateBean/> 
+				</p:inputText>
+				<p:message for="username" />
+			
+				<p:outputLabel for="password"  value="Password"  />
+				<p:watermark for="password"  value="Password" />
+				<p:password id="password" value="#{signUpController.user.password}"  required="true" 	requiredMessage="Please enter password" size="30"/>
+				<p:message for="password" />
+
+				<p:outputLabel for="confirmPassword"  value="confirm Password"/>			
+				<p:watermark for="confirmPassword"  value="confirm Password"/>
+				<p:password id="confirmPassword" value="#{signUpController.confirmPassword}" required="true"	requiredMessage="Please enter confirm password" size="30"/>
+				<p:message for="password" />
+				
+				<p:outputLabel for="email"  value="Email Address "/>				
+				<p:watermark for="email"  value="Email Address *"/>
+				<p:inputText id="email" required="true" label="email" size="30"
+					requiredMessage="Please enter your email address." validatorMessage="Invalid email format"
+					 value="#{signUpController.user.email}">
+					<f:validateRegex	pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+				</p:inputText>
+				<p:message for="email" />
+				
+				<p:outputLabel for="firstName"  value="First Name" />			
+				<p:watermark for="firstName"  value="First Name" />
+				<p:inputText id="firstName" value="#{signUpController.user.firstName}" size="30">
+					<f:validateBean/>  		
+				</p:inputText>
+				<p:message for="firstName" />
+				
+				<p:outputLabel for="lastName"  value="Last Name"/>
+				<p:watermark for="lastName"  value="Last Name"/>
+				<p:inputText id="lastName" value="#{signUpController.user.lastName}" size="30">
+					<f:validateBean/>  		
+				</p:inputText>
+				<p:message for="lastName" />
+			<br/>
+			<p:commandButton value="Sign Up" 	action="#{signUpController.register}" ajax="false" />	
+								
+	</h:panelGrid>			
+</h:form>
+							
+</h:panelGroup>
+</p:panel>
+</div>
+</f:view>
+</ui:define>
+</ui:composition>

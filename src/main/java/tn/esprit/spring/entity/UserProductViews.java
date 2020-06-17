@@ -7,7 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 @Entity
+@Table(
+	    uniqueConstraints=
+	        @UniqueConstraint(columnNames={ "user_id","product_bar_code"})
+	)	
 public class UserProductViews implements Serializable{
 	/**
 	 * 
@@ -15,17 +21,17 @@ public class UserProductViews implements Serializable{
 	private static final long serialVersionUID = -3090977258317652334L;
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	private Long Id;
+	private Long id;
 	@ManyToOne
 	private User user;
 	@ManyToOne
 	private Product product;
-	private int views;
+	private int views=0;
 	public Long getId() {
-		return Id;
+		return id;
 	}
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
 	public User getUser() {
 		return user;
@@ -42,25 +48,26 @@ public class UserProductViews implements Serializable{
 	public int getViews() {
 		return views;
 	}
-	public void setViews(int views) {
-		this.views = views;
+	public void setViews() {
+		this.views = this.views+1;
 	}
+	public UserProductViews() {}	
 	public UserProductViews(Long id, User user, Product product, int views) {
 		super();
-		Id = id;
+		this.id = id;
 		this.user = user;
 		this.product = product;
 		this.views = views;
 	}
 	@Override
 	public String toString() {
-		return "UserProductViews [Id=" + Id + ", user=" + user + ", product=" + product + ", views=" + views + "]";
+		return "UserProductViews [Id=" + id + ", user=" + user + ", product=" + product + ", views=" + views + "]";
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((product == null) ? 0 : product.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		result = prime * result + views;
@@ -75,10 +82,10 @@ public class UserProductViews implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		UserProductViews other = (UserProductViews) obj;
-		if (Id == null) {
-			if (other.Id != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!Id.equals(other.Id))
+		} else if (!id.equals(other.id))
 			return false;
 		if (product == null) {
 			if (other.product != null)

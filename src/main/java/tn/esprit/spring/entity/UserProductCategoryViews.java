@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+
 @Entity
 public class UserProductCategoryViews implements Serializable {
 	/**
@@ -15,17 +17,17 @@ public class UserProductCategoryViews implements Serializable {
 	private static final long serialVersionUID = 6637050210318111190L;
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	private Long Id;
+	private Long id;
 	@ManyToOne
 	private User user;
 	@ManyToOne
 	private ProductCategory productCategory;
-	private int views;
+	private int views=0;
 	public Long getId() {
-		return Id;
+		return id;
 	}
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
 	public User getUser() {
 		return user;
@@ -42,26 +44,27 @@ public class UserProductCategoryViews implements Serializable {
 	public int getViews() {
 		return views;
 	}
-	public void setViews(int views) {
-		this.views = views;
+	public void setViews() {
+		this.views = this.views+1;
 	}
+	public UserProductCategoryViews() {}
 	public UserProductCategoryViews(Long id, User user, ProductCategory productCategory, int views) {
 		super();
-		Id = id;
+		this.id = id;
 		this.user = user;
 		this.productCategory = productCategory;
 		this.views = views;
 	}
 	@Override
 	public String toString() {
-		return "UserProductCategoryViews [Id=" + Id + ", user=" + user + ", productCategory=" + productCategory
+		return "UserProductCategoryViews [Id=" + id + ", user=" + user + ", productCategory=" + productCategory
 				+ ", views=" + views + "]";
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((productCategory == null) ? 0 : productCategory.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		result = prime * result + views;
@@ -76,10 +79,10 @@ public class UserProductCategoryViews implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		UserProductCategoryViews other = (UserProductCategoryViews) obj;
-		if (Id == null) {
-			if (other.Id != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!Id.equals(other.Id))
+		} else if (!id.equals(other.id))
 			return false;
 		if (productCategory == null) {
 			if (other.productCategory != null)

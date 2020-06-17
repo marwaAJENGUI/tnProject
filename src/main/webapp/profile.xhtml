@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="template/#{signInController.template}.xhtml">
+
+<h:head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>My Profile</title>
+</h:head>
+
+<ui:param name="page_name" value="Consomi TN !"/>
+		<ui:define name="profile">
+
+
+<f:view>
+<br/>	<br/>
+<div align="center"  >		
+<p:panel style="width:90%; " >
+<h2>My Profile</h2>
+<p:lightBox iframe="true" id="lighbox3">
+    <h:outputLink value="testFile?fileName=#{signInController.user.id}" title="Set your profile image">
+        <h:outputText value="Set profile image" />
+        <f:facet name="inline">
+          		<h:outputText value="Set your profile image" />
+    	</f:facet>        
+    </h:outputLink>
+</p:lightBox>
+<br/> <br/> 
+
+	<h:panelGrid id="profileGrid" columns="2" style="  text-align: center">
+		<p:graphicImage value="#{signInController.image}" style = "width:400px;height:300px"/>		
+		<h:form>
+		    <p:panelGrid id="profile" columns="2">
+		        <p:outputLabel value="User Name"/>
+		        <p:outputLabel value="#{signInController.user.username}" style="font-weight: bold"/>
+		        <p:outputLabel value="Email"/>
+		        <p:outputLabel value="#{signInController.user.email}" style="font-weight: bold"/>
+		        <p:outputLabel value="First Name"/>
+		        <p:outputLabel value="#{signInController.user.firstName}"/>
+		        <p:outputLabel value="LastName"/>
+		        <p:outputLabel value="#{signInController.user.lastName}"/>
+		    </p:panelGrid>
+		</h:form>
+	</h:panelGrid>
+
+</p:panel>
+<br/> <br/> <br/>
+</div>
+</f:view>
+</ui:define>
+</ui:composition>

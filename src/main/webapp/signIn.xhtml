@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	template="template/template.xhtml">
+	<h:head>
+			<meta charset="utf-8" />
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
+			<title>Sign In</title>
+	</h:head>
+	
+	<ui:param name="page_name" value="Consomi TN !"/>
+		<ui:define name="signIn">
+<f:view>
+<br/>	<br/>
+<div align="center">		
+<p:panel  style="width:90%; ">
+<h:panelGroup>
+<h1>Sign In</h1>
+<p:growl id="grwl"/>
+	<h:form id="signIn" >
+		    <p:message for="LoginGroupPanel" style="color:red;" />
+		    <h:panelGrid  id="LoginGroupPanel" cellpadding="10">
+				
+				<p:outputLabel for="username"  value="User Name"/>			
+				<p:watermark for="username"  value="User Name"/>
+				<p:inputText id="username" value="#{signInController.username}" required="true" 	requiredMessage="Please enter username"  size="30">
+					<f:validateBean/> 
+				</p:inputText>
+				<p:message for="username" />
+			
+				<p:outputLabel for="password"  value="Password"  />
+				<p:watermark for="password"  value="Password" />
+				<p:password id="password" value="#{signInController.password}"  required="true" 	requiredMessage="Please enter password" size="30"/>
+				<p:message for="password" />
+			<br/>
+			<p:commandButton id="login" value="Login" action="#{signInController.login()}" ajax="false" />	
+								
+	</h:panelGrid>			
+</h:form>
+							
+</h:panelGroup>
+</p:panel>
+</div>
+</f:view>
+</ui:define>
+</ui:composition>
