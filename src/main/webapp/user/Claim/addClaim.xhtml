@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/template/template.xhtml" >	
+	
+	
+    <ui:param name="page_name" value="get in touch"/>		
+	<ui:define name="addClaim">
+
+	
+	
+	<!-- Breadcrumbs -->
+	<div class="breadcrumbs">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="bread-inner">
+						<ul class="bread-list">
+							<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+							<li class="active"><a href="blog-single.html">Contact</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Breadcrumbs -->
+  
+	<!-- Start Contact -->
+	<div id="contact-us" class="contact-us section">
+		<div class="container">
+				<div class="contact-head">
+					<div class="row">
+						<div class="col-lg-8 col-12">
+							<div class="form-main">
+								<div class="title">
+									<h4>Get in touch</h4>
+									<h3>Write us a message</h3>
+								</div>
+<!-- 								<form class="form" method="post" action="mail/mail.php"> -->
+								<h:form id="form" class ="form" >
+									<div class="row">
+										<div class="col-lg-6 col-12">
+											<div class="form-group">
+												<label>Your Name<span>*</span></label><br/> <h:message for="validationName" style="color:red"/>
+												<h:inputText id="validationName"  value="#{claimFController.name}" required="true" requiredMessage ="    missing*"></h:inputText>
+											</div>
+										</div>
+										<div class="col-lg-6 col-12">
+											<div class="form-group">
+												<label>Your Subject<span>*</span></label><br/> <h:message for="validationSubject" style="color:red"/>
+												<h:inputText id="validationSubject" value="#{claimFController.subject}" required="true" requiredMessage ="    missing*"></h:inputText>
+											</div>
+										</div>
+										<div class="col-lg-6 col-12">
+											<div class="form-group">
+												<label>Your Email<span>*</span></label><br/> <h:message for="validationEmail" style="color:red"/>
+												<h:inputText  a:placeholder="xx@xxx.xx" id="validationEmail" value="#{claimFController.email}" required="true" requiredMessage ="    missing*">
+												 <f:validator validatorId="tn.esprit.spring.frontcontroller.EmailValidator"/>		
+												</h:inputText>
+											</div>	
+										</div>
+										<div class="col-lg-6 col-12">
+											<div class="form-group">
+												<label>Your Phone<span>*</span></label><br/> <h:message for="validationPhone" style="color:red"/>
+										        <h:inputText validatorMessage=" wrong number*" id="validationPhone" value="#{claimFController.phone}" required="true" requiredMessage ="    missing*">
+											      <f:validateLength minimum="8" maximum="8"/></h:inputText>
+											</div>	
+										</div>
+										<div class="col-12">
+											<div class="form-group message">
+												<label>your message<span>*</span></label><br/> <h:message for="validationMessage" style="color:red"/>
+										<h:inputTextarea id="validationMessage" value="#{claimFController.message}" required="true" requiredMessage ="    missing*"> </h:inputTextarea>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="form-group button">
+												 <h:commandButton id="mybutton" class="btn" value="SEND MESSAGE" action="#{claimFController.addClaim()}" />
+											</div>
+											 <h:message for="mybutton" />
+										</div>
+									</div>
+								</h:form>
+							</div>
+						</div>
+						<div class="col-lg-4 col-12">
+							<div class="single-head">
+								<div class="single-info">
+									<i class="fa fa-phone"></i>
+									<h4 class="title">Call us Now:</h4>
+									<ul>
+										<li>+123 456-789-1120</li>
+										<li>+522 672-452-1120</li>
+									</ul>
+								</div>
+								<div class="single-info">
+									<i class="fa fa-envelope-open"></i>
+									<h4 class="title">Email:</h4>
+									<ul>
+										<li><a href="mailto:info@yourwebsite.com">info@consomitounsi.com</a></li>
+										<li><a href="mailto:info@yourwebsite.com">support@consomitounsi.com</a></li>
+									</ul>
+								</div>
+								<div class="single-info">
+									<i class="fa fa-location-arrow"></i>
+									<h4 class="title">Our Address:</h4>
+									<ul>
+										<li>KA-62/1, EShop Agency, 45 Grand Central Terminal, Ariana.</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	<!--/ End Contact -->
+	
+		</ui:define>
+</ui:composition>

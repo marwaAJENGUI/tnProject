@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/template/backtemplate.xhtml" >
+
+	<ui:param name="page_name" value="add Vehicule"/>
+	<ui:define name="addVehicule">
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card float">
+                <div class="card-body ">
+                  <h4 class="card-title ">Add Car</h4>
+
+                  <h:form class="forms-sample">
+                    <div class="form-group">
+                      <label>Matricule</label><h:message for="validationMatricule" style="color:red"/>
+                      <h:inputText id="validationMatricule" class="form-control" value="#{vehiculeFController.matricule}" a:placeholder="Matricule" required="true" requiredMessage =" missing*"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label>Brand</label><h:message for="validationBrand" style="color:red"/>
+                    <h:inputText id="validationBrand" class="form-control" value="#{vehiculeFController.brand}" a:placeholder="Brand" required="true" requiredMessage =" missing*"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label>Location</label><h:message for="validationLocation" style="color:red"/>
+                      <h:inputText id="validationLocation" class="form-control" value="#{vehiculeFController.location}" a:placeholder="Location" required="true" requiredMessage =" missing*"></h:inputText>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label>Type</label>
+                    		<h:selectOneMenu   class="form-control" value="#{vehiculeFController.VType}" required="true">
+								<f:selectItems value="#{data.types}" /> 
+							</h:selectOneMenu>
+                    </div>
+                    
+
+               <h:commandButton class="btn btn-primary mr-2" value="Add"    action="#{vehiculeFController.addVehicule()}" />
+ 			   <h:commandButton class="btn btn-light"        value="Cancel" action="#{vehiculeFController.back()}" />
+                  </h:form>
+                </div>
+              </div>
+             </div>
+             
+               <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Affect/UnAffect Car to Driver</h4>
+                   <h:form class="forms-sample">
+                   
+                 	<div class="form-group row">
+                      <label class="col-sm-6 col-form-label">Car</label>
+                      <div class="col-sm-9">
+                <h:selectOneMenu  class="form-control"  value="#{vehiculeFController.selectVehiculeId}">
+				<f:selectItems value ="#{vehiculeFController.vehicules}" var="vehicule" itemValue="#{vehicule.id}" itemLabel="#{vehicule}"/>
+			    </h:selectOneMenu>	
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 col-form-label">Driver</label>
+                      <div class="col-sm-9">
+                <h:selectOneMenu  class="form-control"  value="#{vehiculeFController.selectDriverId}">
+				<f:selectItems value ="#{driverFController.drivers}" var="driver" itemValue="#{driver.id}" itemLabel="#{driver}"/>
+			    </h:selectOneMenu>	
+                      </div>
+                    </div>
+                    
+				<br/><br/>	
+               <h:commandButton class="btn btn-dark mr-2"    value="Affect"  action="#{vehiculeFController.affectVehiculeToDriver()}" />
+ 			   <h:commandButton class="btn btn-danger"       value="Remove"  action="#{vehiculeFController.unAffectVehiculeFromDriver()}" />
+                 </h:form>
+                </div>
+              </div>
+            </div>
+	</ui:define>
+</ui:composition>
+

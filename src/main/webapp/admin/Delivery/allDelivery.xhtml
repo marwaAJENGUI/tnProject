@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" 
+	template = "/template/backtemplate.xhtml">
+	
+<ui:param name="page_name" value="Deliverys"/>	
+<ui:define name="allDelivery">
+	 <div class="col-lg-10 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Delivery List</h4>
+                  <div class="table-responsive">
+		  	<h:dataTable  class="table table-hover"  value="#{deliveryFController.deliverys}" var="delivery">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="ID" />
+				</f:facet>
+				<h:outputText value="#{delivery.id}"/>
+			</h:column>
+
+		    <h:column>
+				<f:facet name="header">
+					<h:outputText value="DEPARTURE" />
+				</f:facet>
+				<h:outputText value="#{delivery.departure}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="ARRIVAL" />
+				</f:facet>
+				<h:outputText value="#{delivery.arrival}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="DATE" />
+				</f:facet>
+				<h:outputText value="#{delivery.date}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="DRIVER NAME" />
+				</f:facet>
+				<h:outputText value="#{delivery.driver.firstName} #{delivery.driver.lastName} "/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="FACTURE ID" />
+				</f:facet>
+				<h:outputText value="#{delivery.facture.id}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="STATUS" />
+				</f:facet>
+				<h:outputText value="#{delivery.status}"/>
+			</h:column>
+						
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Action" />
+				</f:facet>
+					<h:form>
+				<h:commandButton class="btn btn-danger" action="#{deliveryFController.deleteDeliveryById(delivery.id)}"  value="Delete" />
+				<h:commandButton class="btn btn-warning" value="Update" />
+					</h:form>
+			</h:column>	
+		</h:dataTable> 	
+		           </div>
+                </div>
+              </div>
+            </div>
+      </ui:define>
+</ui:composition>
+

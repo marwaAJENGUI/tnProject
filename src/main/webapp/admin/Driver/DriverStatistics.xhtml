@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/template/backtemplate.xhtml" >
+
+	<ui:param name="page_name" value="Driver Statistics"/>
+	<ui:define name="DriverStatistics">
+          	<div class="col-lg-8 grid-margin grid-margin-lg-0 stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Driver Statistics</h4>
+									<h:head>
+									</h:head>
+									  <h:form>
+							         <h:commandButton class="btn btn-inverse-info btn-fw" value ="Refresh" action="#{chartView.refreshPie()}" >
+							         </h:commandButton>
+							         </h:form>
+									<p:chart type="pie" model="#{chartView.pieModel}" style="width:400px;height:300px" />
+								</div>
+							</div>
+						</div>
+	</ui:define>
+</ui:composition>
+

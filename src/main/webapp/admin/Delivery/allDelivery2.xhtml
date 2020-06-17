@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" 
+	xmlns:b="http://bootsfaces.net/ui"
+	template = "/template/backtemplate.xhtml">
+	
+<ui:param name="page_name" value="Deliverys"/>	
+<ui:define name="allDelivery">
+	 <div class="col-lg-10 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Delivery List</h4>
+                  <div class="table-responsive">
+						<b:form>
+							<b:dataTable class="table table-hover" value="#{deliveryFController.deliverys}" var="delivery"
+								page-length="5" page-length-menu="5,10,20" excel="true" pdf="true" columnVisibility="true">
+								<b:dataTableColumn value="#{delivery.id}" label="ID" />
+								<b:dataTableColumn value="#{delivery.departure}" label="Departure" />
+								<b:dataTableColumn value="#{delivery.arrival}" label="Arrival" />
+								<b:dataTableColumn value="#{delivery.date}" label="Date" />
+								<b:dataTableColumn value="#{delivery.driver.firstName}" label="Driver Name" />
+								<b:dataTableColumn value="#{delivery.facture.id}" label="Facture ID" />
+								<b:dataTableColumn value="#{delivery.status}" label="STATUS" />
+								<b:dataTableColumn  label="Action" >
+								<h:commandButton look="danger" style="width:100px"  value="Delete"/>
+								<h:commandButton  look="warning" style="width:100px"  action="#{deliveryFController.copyDeliveryInfo(delivery)}" value="Update" />
+								</b:dataTableColumn>
+							</b:dataTable>
+						</b:form>
+
+					</div>
+                </div>
+              </div>
+            </div>
+      </ui:define>
+</ui:composition>
+

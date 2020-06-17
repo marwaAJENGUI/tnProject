@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	template="/template/backtemplate.xhtml" >
+	
+<ui:param name="page_name" value="all Drivers"/>	
+<ui:define name="allDrivers">
+
+	 <div class="col-lg-10 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Driver List</h4>
+                  <div class="table-responsive">
+		  	<h:dataTable  class="table table-hover"  value="#{driverFController.drivers}" var="driver"	>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="first Name" />
+				</f:facet>
+				<h:outputText value="#{driver.firstName}"/>
+			</h:column>
+			
+		    <h:column>
+				<f:facet name="header">
+					<h:outputText value="last Name" />
+				</f:facet>
+				<h:outputText value="#{driver.lastName}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="phone Number" />
+				</f:facet>
+				<h:outputText value="#{driver.phoneNumber}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="salary (DT)" />
+				</f:facet>
+				<h:outputText value="#{driver.salary}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="prime (DT)" />
+				</f:facet>
+				<h:outputText value="#{driver.prime}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="task Completed" />
+				</f:facet>
+				<h:outputText value="#{driver.taskCompleted}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="available" />
+				</f:facet>
+				<h:outputText class="badge badge-info" value="#{driver.available}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="IP" />
+				</f:facet>
+				<h:outputText class="badge badge-dark" value="#{driver.ip}"/>
+			</h:column>
+			
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Action" />
+				</f:facet>
+					<h:form>
+				<h:commandButton class="btn btn-danger"  action="#{driverFController.deleteDriverByID(driver.id)}" value="Delete" />
+				<h:commandButton class="btn btn-warning" action="#{driverFController.copyDriverInfo(driver)}" value="Update" />
+					</h:form>
+			</h:column>
+			
+		</h:dataTable> 	
+		           </div>
+                </div>
+              </div>
+            </div>
+		</ui:define>
+		
+		
+</ui:composition>
+

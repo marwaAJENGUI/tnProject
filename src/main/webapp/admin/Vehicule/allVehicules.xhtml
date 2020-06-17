@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" 
+	template = "/template/backtemplate.xhtml">
+	
+<ui:param name="page_name" value="all Vehicules"/>	
+<ui:define name="allVehicules">
+	 <div class="col-lg-10 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Car List</h4>
+                  <div class="table-responsive">
+		  	<h:dataTable  class="table table-hover"  value="#{vehiculeFController.vehicules}" var="vehicule">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="matricule" />
+				</f:facet>
+				<h:outputText value="#{vehicule.matricule}"/>
+			</h:column>
+
+		    <h:column>
+				<f:facet name="header">
+					<h:outputText value="brand" />
+				</f:facet>
+				<h:outputText value="#{vehicule.brand}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="location" />
+				</f:facet>
+				<h:outputText value="#{vehicule.location}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Type" />
+				</f:facet>
+				<h:outputText value="#{vehicule.type}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Driver Name" />
+				</f:facet>
+				<h:outputText value="#{vehicule.driver.firstName} #{vehicule.driver.lastName} "/>
+			</h:column>
+			
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Action" />
+				</f:facet>
+					<h:form>
+				<h:commandButton class="btn btn-danger"  action="#{vehiculeFController.deleteVehiculeByID(vehicule.id)}" value="Delete" />
+				<h:commandButton class="btn btn-warning" action="#{vehiculeFController.copyVehiculeInfo(vehicule)}"      value="Update" />
+					</h:form>
+			</h:column>	
+		</h:dataTable> 	
+		           </div>
+                </div>
+              </div>
+            </div>
+      </ui:define>
+</ui:composition>
+
