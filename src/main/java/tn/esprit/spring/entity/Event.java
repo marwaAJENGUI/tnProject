@@ -1,19 +1,22 @@
 package tn.esprit.spring.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Event implements Serializable {
@@ -29,50 +32,101 @@ public class Event implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private EventCategory category;
 	private String name;
+	private String description;
+	private float goal;
+	private float collAmount;
 	private int placesNbr;
+	private int participantsNbr;
+	private boolean EarlyBirdOpt;
+	private int NbrEarlyBirdTickets;
+	private int discountPercentage;
+	private float ticketPrice;
+	@Temporal(TemporalType.DATE)
 	private Date date;
-	private String hour;
+	@Temporal(TemporalType.TIME)
+	private Date hour;
 	private String location;
 	private String poster;
-	private int ticketPrice;
-	private int eventCost;
-	private boolean status;
-	@OneToOne
+	private int views;
+	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="jackpot_id")
 	private Jackpot jackpot;
-	@OneToMany(mappedBy="event")
-	private List <Publicity> publicity;
-	@ManyToMany(mappedBy="events")
-	private List<User> users;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="event")
+	private List<Notification> notification;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="event")
+	private List<Participation> participation;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="event")
+	private List<Contribution> contribution;
 	
 	public Event() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
-	public Event(Long id, EventCategory category, String name, int placesNbr, Date date, String hour, String location,
-			String poster, int ticketPrice, int eventCost, boolean status, Jackpot jackpot, List<Publicity> publicity,
-			List<User> users) {
+	public Event(Long id, EventCategory category, String name, String description, float goal, float collAmount,
+			int placesNbr, int participantsNbr, boolean earlyBirdOpt, int nbrEarlyBirdTickets, int discountPercentage,
+			float ticketPrice, Date date, Date hour, String location, String poster, int views, Jackpot jackpot,
+			List<Notification> notification, List<Participation> participation, List<Contribution> contribution) {
 		super();
 		this.id = id;
 		this.category = category;
 		this.name = name;
+		this.description = description;
+		this.goal = goal;
+		this.collAmount = collAmount;
 		this.placesNbr = placesNbr;
+		this.participantsNbr = participantsNbr;
+		EarlyBirdOpt = earlyBirdOpt;
+		NbrEarlyBirdTickets = nbrEarlyBirdTickets;
+		this.discountPercentage = discountPercentage;
+		this.ticketPrice = ticketPrice;
 		this.date = date;
 		this.hour = hour;
 		this.location = location;
 		this.poster = poster;
-		this.ticketPrice = ticketPrice;
-		this.eventCost = eventCost;
-		this.status = status;
+		this.views = views;
 		this.jackpot = jackpot;
-		this.publicity = publicity;
-		this.users = users;
+		this.notification = notification;
+		this.participation = participation;
+		this.contribution = contribution;
 	}
 
+	public Event(EventCategory category, String name, String description, Date date, Date hour, String poster,
+			boolean earlyBirdOpt, int nbrEarlyBirdTickets, int discountPercentage, float ticketPrice,
+			int placesNbr, String location, float goal) {
+		this.category = category;
+		this.name = name;
+		this.description = description;
+		this.goal = goal;
+		this.placesNbr = placesNbr;
+		EarlyBirdOpt = earlyBirdOpt;
+		NbrEarlyBirdTickets = nbrEarlyBirdTickets;
+		this.discountPercentage = discountPercentage;
+		this.ticketPrice = ticketPrice;
+		this.date = date;
+		this.hour = hour;
+		this.location = location;
+		this.poster = poster;
+		}
 
+	public Event(Long id, EventCategory category, String name, String description, Date date, Date hour,
+			String poster, boolean earlyBirdOpt, int nbrEarlyBirdTickets, int discountPercentage,
+			float ticketPrice, int placesNbr, String location, float goal) {
+		this.id = id;
+		this.category = category;
+		this.name = name;
+		this.description = description;
+		this.goal = goal;
+		this.placesNbr = placesNbr;
+		EarlyBirdOpt = earlyBirdOpt;
+		NbrEarlyBirdTickets = nbrEarlyBirdTickets;
+		this.discountPercentage = discountPercentage;
+		this.ticketPrice = ticketPrice;
+		this.date = date;
+		this.hour = hour;
+		this.location = location;
+		this.poster = poster;
+		}
 
 	public Long getId() {
 		return id;
@@ -98,12 +152,76 @@ public class Event implements Serializable {
 		this.name = name;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public float getGoal() {
+		return goal;
+	}
+
+	public void setGoal(float goal) {
+		this.goal = goal;
+	}
+
+	public float getCollAmount() {
+		return collAmount;
+	}
+
+	public void setCollAmount(float collAmount) {
+		this.collAmount = collAmount;
+	}
+
 	public int getPlacesNbr() {
 		return placesNbr;
 	}
 
 	public void setPlacesNbr(int placesNbr) {
 		this.placesNbr = placesNbr;
+	}
+
+	public int getParticipantsNbr() {
+		return participantsNbr;
+	}
+
+	public void setParticipantsNbr(int participantsNbr) {
+		this.participantsNbr = participantsNbr;
+	}
+
+	public boolean isEarlyBirdOpt() {
+		return EarlyBirdOpt;
+	}
+
+	public void setEarlyBirdOpt(boolean earlyBirdOpt) {
+		EarlyBirdOpt = earlyBirdOpt;
+	}
+
+	public int getNbrEarlyBirdTickets() {
+		return NbrEarlyBirdTickets;
+	}
+
+	public void setNbrEarlyBirdTickets(int nbrEarlyBirdTickets) {
+		NbrEarlyBirdTickets = nbrEarlyBirdTickets;
+	}
+
+	public int getDiscountPercentage() {
+		return discountPercentage;
+	}
+
+	public void setDiscountPercentage(int discountPercentage) {
+		this.discountPercentage = discountPercentage;
+	}
+
+	public float getTicketPrice() {
+		return ticketPrice;
+	}
+
+	public void setTicketPrice(float ticketPrice) {
+		this.ticketPrice = ticketPrice;
 	}
 
 	public Date getDate() {
@@ -114,11 +232,11 @@ public class Event implements Serializable {
 		this.date = date;
 	}
 
-	public String getHour() {
+	public Date getHour() {
 		return hour;
 	}
 
-	public void setHour(String hour) {
+	public void setHour(Date hour) {
 		this.hour = hour;
 	}
 
@@ -138,28 +256,12 @@ public class Event implements Serializable {
 		this.poster = poster;
 	}
 
-	public int getTicketPrice() {
-		return ticketPrice;
+	public int getViews() {
+		return views;
 	}
 
-	public void setTicketPrice(int ticketPrice) {
-		this.ticketPrice = ticketPrice;
-	}
-
-	public int getEventCost() {
-		return eventCost;
-	}
-
-	public void setEventCost(int eventCost) {
-		this.eventCost = eventCost;
-	}
-
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
+	public void setViews(int views) {
+		this.views = views;
 	}
 
 	public Jackpot getJackpot() {
@@ -170,46 +272,57 @@ public class Event implements Serializable {
 		this.jackpot = jackpot;
 	}
 
-	public List<Publicity> getPublicity() {
-		return publicity;
+	public List<Notification> getNotification() {
+		return notification;
 	}
 
-	public void setPublicity(List<Publicity> publicity) {
-		this.publicity = publicity;
+	public void setNotification(List<Notification> notification) {
+		this.notification = notification;
 	}
 
-	public List<User> getUsers() {
-		return users;
+	public List<Participation> getParticipation() {
+		return participation;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setParticipation(List<Participation> participation) {
+		this.participation = participation;
 	}
 
+	public List<Contribution> getContribution() {
+		return contribution;
+	}
 
+	public void setContribution(List<Contribution> contribution) {
+		this.contribution = contribution;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (EarlyBirdOpt ? 1231 : 1237);
+		result = prime * result + NbrEarlyBirdTickets;
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
+		result = prime * result + Float.floatToIntBits(collAmount);
+		result = prime * result + ((contribution == null) ? 0 : contribution.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + eventCost;
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + discountPercentage;
+		result = prime * result + Float.floatToIntBits(goal);
 		result = prime * result + ((hour == null) ? 0 : hour.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((jackpot == null) ? 0 : jackpot.hashCode());
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((notification == null) ? 0 : notification.hashCode());
+		result = prime * result + participantsNbr;
+		result = prime * result + ((participation == null) ? 0 : participation.hashCode());
 		result = prime * result + placesNbr;
 		result = prime * result + ((poster == null) ? 0 : poster.hashCode());
-		result = prime * result + ((publicity == null) ? 0 : publicity.hashCode());
-		result = prime * result + (status ? 1231 : 1237);
-		result = prime * result + ticketPrice;
-		result = prime * result + ((users == null) ? 0 : users.hashCode());
+		result = prime * result + Float.floatToIntBits(ticketPrice);
+		result = prime * result + views;
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -220,14 +333,32 @@ public class Event implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Event other = (Event) obj;
+		if (EarlyBirdOpt != other.EarlyBirdOpt)
+			return false;
+		if (NbrEarlyBirdTickets != other.NbrEarlyBirdTickets)
+			return false;
 		if (category != other.category)
+			return false;
+		if (Float.floatToIntBits(collAmount) != Float.floatToIntBits(other.collAmount))
+			return false;
+		if (contribution == null) {
+			if (other.contribution != null)
+				return false;
+		} else if (!contribution.equals(other.contribution))
 			return false;
 		if (date == null) {
 			if (other.date != null)
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
-		if (eventCost != other.eventCost)
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (discountPercentage != other.discountPercentage)
+			return false;
+		if (Float.floatToIntBits(goal) != Float.floatToIntBits(other.goal))
 			return false;
 		if (hour == null) {
 			if (other.hour != null)
@@ -254,6 +385,18 @@ public class Event implements Serializable {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
+		if (notification == null) {
+			if (other.notification != null)
+				return false;
+		} else if (!notification.equals(other.notification))
+			return false;
+		if (participantsNbr != other.participantsNbr)
+			return false;
+		if (participation == null) {
+			if (other.participation != null)
+				return false;
+		} else if (!participation.equals(other.participation))
+			return false;
 		if (placesNbr != other.placesNbr)
 			return false;
 		if (poster == null) {
@@ -261,31 +404,22 @@ public class Event implements Serializable {
 				return false;
 		} else if (!poster.equals(other.poster))
 			return false;
-		if (publicity == null) {
-			if (other.publicity != null)
-				return false;
-		} else if (!publicity.equals(other.publicity))
+		if (Float.floatToIntBits(ticketPrice) != Float.floatToIntBits(other.ticketPrice))
 			return false;
-		if (status != other.status)
-			return false;
-		if (ticketPrice != other.ticketPrice)
-			return false;
-		if (users == null) {
-			if (other.users != null)
-				return false;
-		} else if (!users.equals(other.users))
+		if (views != other.views)
 			return false;
 		return true;
 	}
 
-
-
 	@Override
 	public String toString() {
-		return "Event [id=" + id + ", category=" + category + ", name=" + name + ", placesNbr=" + placesNbr + ", date="
-				+ date + ", hour=" + hour + ", location=" + location + ", poster=" + poster + ", ticketPrice="
-				+ ticketPrice + ", eventCost=" + eventCost + ", status=" + status + ", jackpot=" + jackpot
-				+ ", publicity=" + publicity + ", users=" + users + "]";
+		return "Event [id=" + id + ", category=" + category + ", name=" + name + ", description=" + description
+				+ ", goal=" + goal + ", collAmount=" + collAmount + ", placesNbr=" + placesNbr + ", participantsNbr="
+				+ participantsNbr + ", EarlyBirdOpt=" + EarlyBirdOpt + ", NbrEarlyBirdTickets=" + NbrEarlyBirdTickets
+				+ ", discountPercentage=" + discountPercentage + ", ticketPrice=" + ticketPrice + ", date=" + date
+				+ ", hour=" + hour + ", location=" + location + ", poster=" + poster + ", views=" + views + ", jackpot="
+				+ jackpot + ", notification=" + notification + ", participation=" + participation + ", contribution="
+				+ contribution + "]";
 	}
 	
 	

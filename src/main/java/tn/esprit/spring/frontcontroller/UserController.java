@@ -45,6 +45,7 @@ public class UserController {
 	
 	public static Driver authenticatedDriver;
 	
+	public static User USERCONNECTED ;
 
 	
 	
@@ -80,8 +81,13 @@ public class UserController {
 		String Driverpass = authenticatedDriver.getPassword();
 
 		if (authUser != null && authUser.getRole() == Role.ADMINISTRATEUR && bcryptEncoder.matches(Userpass, authUser.getPassword())) {
-
+			USERCONNECTED = authUser;
 			navigateTo = "/admin/adminDash.jsf?faces-redirect=true";
+			loggedIn = true;
+		}
+		if (authUser != null && authUser.getRole() == Role.CLIENT && bcryptEncoder.matches(Userpass, authUser.getPassword())) {
+			USERCONNECTED = authUser;
+			navigateTo = "/template/template.jsf?faces-redirect=true";
 			loggedIn = true;
 		}
 		else if (authDriver != null && authDriver.getRole() == Role.DRIVER && bcryptEncoder.matches(Driverpass, authDriver.getPassword())){

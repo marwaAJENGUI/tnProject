@@ -3,6 +3,7 @@ package tn.esprit.spring.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -33,6 +34,7 @@ public class User implements Serializable{
 
 		private String username;
 	    private String password;
+		private float accBalance;
 
 	    
 		@OneToMany(mappedBy="user")
@@ -41,9 +43,13 @@ public class User implements Serializable{
 		
 		@OneToMany(mappedBy="user")
 		private List <UserProductCategoryViews> userProductCategoriesViews;
-		@ManyToMany
-		private List <Event> events;
-	  
+		
+		@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+		private List<Participation> participation;
+		@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+		private List<Notification> notification;
+		@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+		private List<Contribution> contribution;
 	
 		public User() {}
 
@@ -100,14 +106,6 @@ public class User implements Serializable{
 		public void setRole(Role role) {
 			this.role = role;
 		}
-
-		public List<Event> getEvents() {
-			return events;
-		}
-
-		public void setEvents(List<Event> events) {
-			this.events = events;
-		}
 		
 		public String getUsername() {
 			return username;
@@ -125,10 +123,46 @@ public class User implements Serializable{
 			this.password = password;
 		}
 
+		public float getAccBalance() {
+			return accBalance;
+		}
+
+		public void setAccBalance(float accBalance) {
+			this.accBalance = accBalance;
+		}
+
+		public List<Participation> getParticipation() {
+			return participation;
+		}
+
+		public void setParticipation(List<Participation> participation) {
+			this.participation = participation;
+		}
+
+		public List<Notification> getNotification() {
+			return notification;
+		}
+
+		public void setNotification(List<Notification> notification) {
+			this.notification = notification;
+		}
+
+		public List<Contribution> getContribution() {
+			return contribution;
+		}
+
+		public void setContribution(List<Contribution> contribution) {
+			this.contribution = contribution;
+		}
+
 		@Override
 		public String toString() {
 			return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-					+ ", role=" + role + ", username=" + username + ", password=" + password + "]";
+					+ ", role=" + role + ", username=" + username + ", password=" + password + ", accBalance="
+					+ accBalance + ", UserProductsViews=" + UserProductsViews + ", userProductCategoriesViews="
+					+ userProductCategoriesViews + ", participation=" + participation + ", notification=" + notification
+					+ ", contribution=" + contribution + "]";
 		}
+		
 
 }
