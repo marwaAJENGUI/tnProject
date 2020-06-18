@@ -4,8 +4,10 @@ import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import tn.esprit.spring.entity.Category;
 import tn.esprit.spring.entity.EventCategory;
 import tn.esprit.spring.entity.Role;
+import tn.esprit.spring.entity.Type;
 import tn.esprit.spring.entity.VehiculeType;
 
 
@@ -25,5 +27,14 @@ public class Data {
 	}
 	public EventCategory[] getEventCategories(){
 		return EventCategory.values();
+	}
+	public Type[] getTypes1()
+	{
+	return Type.values();
+	}
+	
+	public Category[] getCategories()
+	{
+	return Category.values();
 	}
 }

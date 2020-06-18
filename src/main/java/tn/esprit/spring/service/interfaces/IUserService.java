@@ -35,5 +35,6 @@ public interface IUserService {
 	public User authenticate(String username, String password);
 	
 	public Location givenIP__whenFetchingCity__thenReturnsCityData() throws IOException, GeoIp2Exception  ;
-		
+	public User getUserByUsernameAndPassword(String username, String password) ;
+	public User authenticatejsf(String username, String password);
 }

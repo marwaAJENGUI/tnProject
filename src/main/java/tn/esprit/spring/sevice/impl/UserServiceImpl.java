@@ -129,5 +129,16 @@ public class UserServiceImpl implements UserDetailsService,IUserService {
 		userRepo.deleteById(id);
 
 	}	
+	public User authenticatejsf(String username, String password) {
+		User u = userRepo.findByUsernameAndPassword(username, password);
+		return u;
+	}
+
 	
+
+	
+	public User getUserByUsernameAndPassword(String username, String password) {
+		return userRepo.getUserByUsernameAndPassword(username, password);
+		
+	}
 }
